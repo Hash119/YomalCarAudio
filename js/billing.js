@@ -541,7 +541,7 @@ class BillingEngine {
 
       <div class="invoice-modal-actions">
         <button class="btn btn-secondary" onclick="UI.closeModal('invoice-modal')">Close</button>
-        <button class="btn btn-primary" onclick="window.print()">🖨️ Print Invoice</button>
+        <button class="btn btn-primary" onclick="posEngine.printInvoiceDirect('${invoice.id}')">🖨️ Print / Save PDF</button>
         <a href="${UI.generateWhatsAppInvoiceLink(invoice)}" target="_blank" class="btn btn-whatsapp">
           <span>💬 Send via WhatsApp</span>
         </a>
@@ -549,6 +549,260 @@ class BillingEngine {
     `;
 
     UI.openModal("invoice-modal");
+  }
+
+  printInvoiceDirect(invoiceId) {
+    const invoice = db.getInvoiceById(invoiceId);
+    if (!invoice) return;
+
+    const shop = db.state.shopInfo;
+    const isPending = invoice.status === "Pending Approval";
+    const isRejected = invoice.status === "Discount Rejected";
+    const statusText = isPending ? "PENDING APPROVAL" : isRejected ? "DISCOUNT REJECTED" : "OFFICIAL INVOICE / PAID";
+    const badgeBg = isPending ? "#fef3c7" : isRejected ? "#fee2e2" : "#dcfce7";
+    const badgeColor = isPending ? "#b45309" : isRejected ? "#b91c1c" : "#15803d";
+
+    const printHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8" />
+        <title>Invoice ${invoice.invoiceNumber} - Auto Doc Yomal Car Audio</title>
+        <style>
+          @page { size: A4 portrait; margin: 12mm 15mm; }
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #111827;
+            background: #ffffff;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 20px;
+          }
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #111827;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+          }
+          .brand { display: flex; align-items: center; gap: 14px; }
+          .logo { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #d4af37; object-fit: cover; }
+          .brand-title { font-size: 19px; font-weight: 800; color: #111827; }
+          .brand-sub { font-size: 12px; color: #4b5563; font-weight: 600; margin-top: 2px; }
+          .brand-info { font-size: 11px; color: #6b7280; margin-top: 2px; }
+          .meta { text-align: right; }
+          .badge {
+            display: inline-block;
+            background: ${badgeBg};
+            color: ${badgeColor};
+            border: 1px solid ${badgeColor};
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 14px;
+            margin-bottom: 6px;
+          }
+          .inv-no { font-size: 16px; font-weight: 800; font-family: monospace; }
+          .inv-date { font-size: 11px; color: #6b7280; }
+          .cust-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            background: #f9fafb;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 15px;
+          }
+          .box-lbl { font-size: 10px; font-weight: 800; color: #6b7280; text-transform: uppercase; margin-bottom: 2px; }
+          .box-val { font-size: 13px; font-weight: 700; color: #111827; }
+          .box-sub { font-size: 11px; color: #4b5563; }
+          table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+          th {
+            background: #f3f4f6;
+            color: #111827;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 8px 10px;
+            border-top: 1px solid #9ca3af;
+            border-bottom: 2px solid #111827;
+            text-align: left;
+          }
+          td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px;
+            vertical-align: middle;
+          }
+          .text-right { text-align: right; }
+          .text-center { text-align: center; }
+          .totals-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+          }
+          .notes-box {
+            flex: 1;
+            font-size: 11px;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 10px;
+            background: #fafafa;
+          }
+          .breakdown-box {
+            min-width: 250px;
+            background: #f9fafb;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px 14px;
+          }
+          .row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; color: #374151; }
+          .row-disc { color: #b91c1c; font-weight: 700; }
+          .row-total {
+            border-top: 2px solid #111827;
+            padding-top: 6px;
+            margin-top: 6px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #111827;
+          }
+          .footer {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 10px;
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+          }
+          .signatures {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 24px;
+            font-size: 12px;
+            font-weight: 700;
+          }
+          .sig-line { border-top: 1px dotted #6b7280; width: 170px; text-align: center; padding-top: 4px; }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <div class="brand">
+            <img src="${shop.logo}" class="logo" onerror="this.src='Photos/YomalLOGO.jpg'" />
+            <div>
+              <div class="brand-title">${shop.name}</div>
+              <div class="brand-sub">${shop.tagline}</div>
+              <div class="brand-info">📍 ${shop.address}</div>
+              <div class="brand-info">📞 ${shop.phone} | ✉️ ${shop.email} | Reg: ${shop.regNo}</div>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="badge">${statusText}</div>
+            <div class="inv-no">${invoice.invoiceNumber}</div>
+            <div class="inv-date">Date: ${UI.formatDateTime(invoice.date)}</div>
+            <div class="inv-date">Officer: ${invoice.cashierName}</div>
+          </div>
+        </div>
+
+        <div class="cust-box">
+          <div>
+            <div class="box-lbl">CUSTOMER DETAILS</div>
+            <div class="box-val">${invoice.customerName}</div>
+            <div class="box-sub">📞 ${invoice.customerPhone || 'N/A'}</div>
+          </div>
+          <div>
+            <div class="box-lbl">VEHICLE DETAILS</div>
+            <div class="box-val">🚗 ${invoice.vehicleNumber}</div>
+            <div class="box-sub">${invoice.vehicleModel || 'Standard Vehicle'}</div>
+          </div>
+          <div>
+            <div class="box-lbl">PAYMENT & METHOD</div>
+            <div class="box-val">${invoice.paymentMethod}</div>
+            <div class="box-sub">Status: ${invoice.paymentStatus}</div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 30px;">#</th>
+              <th>Description & Specification</th>
+              <th>Category</th>
+              <th class="text-right">Unit Price</th>
+              <th class="text-center">Qty</th>
+              <th class="text-right">Total (LKR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${invoice.items.map((item, idx) => `
+              <tr>
+                <td>${idx + 1}</td>
+                <td>
+                  <strong>${item.name}</strong>
+                  <div style="font-size: 10px; color: #6b7280;">${item.priceTier === 'specialPrice' ? 'Special Tier' : item.priceTier === 'discountPrice' ? 'Discount Tier' : 'Standard'}</div>
+                </td>
+                <td>${item.category || (item.isService ? 'Workshop Service' : 'Parts')}</td>
+                <td class="text-right">Rs. ${(item.unitPrice || 0).toLocaleString()}</td>
+                <td class="text-center">${item.qty}</td>
+                <td class="text-right"><strong>Rs. ${(item.total || 0).toLocaleString()}</strong></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+
+        <div class="totals-wrapper">
+          <div class="notes-box">
+            <strong>Notes & Warranty Terms:</strong>
+            <p style="margin-top: 4px;">${invoice.notes || 'Genuine parts & installation guaranteed. Retain this invoice for warranty claims.'}</p>
+            ${invoice.rejectReason ? `<p style="color:#b91c1c; margin-top:4px;"><b>Admin Rejection Note:</b> ${invoice.rejectReason}</p>` : ''}
+          </div>
+
+          <div class="breakdown-box">
+            <div class="row">
+              <span>Subtotal:</span>
+              <span>Rs. ${(invoice.subTotal || 0).toLocaleString()}</span>
+            </div>
+            ${invoice.discountAmount > 0 ? `
+              <div class="row row-disc">
+                <span>Discount (${invoice.discountType === 'percentage' ? invoice.discountValue + '%' : 'Fixed'}):</span>
+                <span>- Rs. ${(invoice.discountAmount || 0).toLocaleString()}</span>
+              </div>
+            ` : ''}
+            <div class="row row-total">
+              <span>Grand Total:</span>
+              <span>Rs. ${(invoice.totalAmount || 0).toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="signatures">
+          <div class="sig-line">Customer Signature</div>
+          <div class="sig-line">Authorized Officer</div>
+        </div>
+
+        <div class="footer" style="margin-top: 20px;">
+          Thank you for choosing Auto Doc Yomal Car Audio! Sri Lanka's Premier Vehicle Sound & Customization Studio.
+        </div>
+      </body>
+      </html>
+    `;
+
+    const printWin = window.open("", "_blank", "width=850,height=900");
+    if (printWin) {
+      printWin.document.open();
+      printWin.document.write(printHtml);
+      printWin.document.close();
+      printWin.focus();
+      setTimeout(() => {
+        printWin.print();
+      }, 300);
+    } else {
+      // Fallback if popup blocked
+      window.print();
+    }
   }
 
   renderInvoicesList() {
