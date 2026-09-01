@@ -326,7 +326,7 @@ class AppRouter {
               <span class="price-val">${UI.formatCurrency(prod.salePrice)}</span>
               ${prod.discountPrice ? `<span class="price-disc font-mono">Special: ${UI.formatCurrency(prod.specialPrice || prod.discountPrice)}</span>` : ''}
             </div>
-            <a href="https://wa.me/94771234567?text=${encodeURIComponent(`Hi Auto Doc Yomal Car Audio, I would like to inquire about ${prod.name} (Ref: ${prod.sku})`)}" target="_blank" class="btn-wa-inquire" title="Inquire on WhatsApp">
+            <a href="https://wa.me/94771564131?text=${encodeURIComponent(`Hi Auto Doc Yomal Car Audio, I would like to inquire about ${prod.name} (Ref: ${prod.sku})`)}" target="_blank" class="btn-wa-inquire" title="Inquire on WhatsApp">
               <span>💬 Inquire</span>
             </a>
           </div>
@@ -384,7 +384,7 @@ class AppRouter {
       msg += `\n*Estimated Total:* Rs. ${total.toLocaleString()}\n`;
       msg += `Please let me know available booking slots!`;
 
-      waBtn.href = `https://wa.me/94771234567?text=${encodeURIComponent(msg)}`;
+      waBtn.href = `https://wa.me/94771564131?text=${encodeURIComponent(msg)}`;
     }
   }
 
@@ -409,7 +409,7 @@ class AppRouter {
     msg += `📅 Preferred Date: ${date}\n`;
 
     UI.closeModal("service-booking-modal");
-    window.open(`https://wa.me/94771234567?text=${encodeURIComponent(msg)}`, "_blank");
+    window.open(`https://wa.me/94771564131?text=${encodeURIComponent(msg)}`, "_blank");
     UI.showToast("Opening WhatsApp with your booking details...", "success");
   }
 

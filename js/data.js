@@ -5,16 +5,16 @@ const INITIAL_DATA = {
   shopInfo: {
     name: "Auto Doc - Yomal Car Audio",
     tagline: "Premier Vehicle Audio, Security & Modification Specialists",
-    phone: "+94 77 123 4567",
-    whatsapp: "+94771234567",
+    phone: "+94 76 935 0735",
+    whatsapp: "+94771564131",
     email: "info@yomalcaraudio.lk",
-    address: "No. 142, Kandy Road, Kurunegala / Colombo Main Branch, Sri Lanka",
+    address: "77/A moris road milidduwa , Galle, Sri Lanka",
     logo: "Photos/YomalLOGO.jpg",
     facebook: "https://web.facebook.com/Yomalcaraudioo/",
     currency: "Rs.",
     vatRate: 0,
     regNo: "PV-98214-LK",
-    branch: "Kurunegala Flagship Studio"
+    branch: "Galle Flagship Studio"
   },
 
   users: [

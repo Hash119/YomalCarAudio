@@ -4,7 +4,7 @@
 [![Facebook](https://img.shields.io/badge/Facebook-Yomalcaraudioo-1877F2?logo=facebook)](https://web.facebook.com/Yomalcaraudioo/)
 [![Version](https://img.shields.io/badge/Version-2.4.0-gold)](#)
 
-A state-of-the-art, automated web application and management system built for **Auto Doc - Yomal Car Audio** (Kurunegala / Colombo, Sri Lanka).
+A state-of-the-art, automated web application and management system built for **Auto Doc - Yomal Car Audio** (Galle / Colombo, Sri Lanka).
 
 ---
 
@@ -56,6 +56,7 @@ Simply open `index.html` in any modern web browser. No server setup or external 
 ## 📞 Contact & Workshop Info
 
 - **Facebook**: [facebook.com/Yomalcaraudioo](https://web.facebook.com/Yomalcaraudioo/)
-- **Hotline / WhatsApp**: +94 77 123 4567
-- **Main Flagship**: No. 142, Kandy Road, Kurunegala, Sri Lanka
+- **Hotline**: +94 76 935 0735
+- **WhatsApp**: +94 77 156 4131
+- **Main Flagship**: 77/A moris road milidduwa , Galle, Sri Lanka
 - **Colombo Express**: High Level Road, Colombo, Sri Lanka
