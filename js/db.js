@@ -15,11 +15,20 @@ class DataStore {
         const parsed = JSON.parse(saved);
         
         // One-time migration for old contact info
-        if (parsed.shopInfo && parsed.shopInfo.phone === "+94 77 123 4567") {
-            parsed.shopInfo.phone = "+94 76 935 0735";
-            parsed.shopInfo.whatsapp = "+94771564131";
-            parsed.shopInfo.address = "77/A moris road milidduwa , Galle, Sri Lanka";
-            parsed.shopInfo.branch = "Galle Flagship Studio";
+        if (parsed.shopInfo) {
+            const oldAddr = parsed.shopInfo.address || "";
+            const oldPhone = parsed.shopInfo.phone || "";
+            if (oldAddr.includes("Kurunegala") || oldPhone.includes("123")) {
+                parsed.shopInfo.phone = "+94 76 935 0735";
+                parsed.shopInfo.whatsapp = "+94771564131";
+                parsed.shopInfo.address = "77/A moris road milidduwa , Galle, Sri Lanka";
+                parsed.shopInfo.branch = "Galle Flagship Studio";
+                parsed.shopInfo.regNo = "BR-YCA-10294";
+                parsed.shopInfo.facebook = "https://web.facebook.com/Yomalcaraudioo/";
+                
+                // Save it back to local storage immediately so it persists
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(parsed));
+            }
         }
 
         // Ensure all required collections exist
