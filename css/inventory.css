@@ -1,0 +1,108 @@
+/* Auto Doc - Yomal Car Audio - Inventory Management */
+
+.inventory-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inventory-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 24px;
+  flex-wrap: wrap;
+}
+
+.inv-toolbar-left {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.inv-toolbar-right {
+  display: flex;
+  gap: 12px;
+}
+
+.prod-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prod-name {
+  color: #fff;
+  font-size: 0.92rem;
+}
+
+.prod-sku {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.badge-category {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: #d1d5db;
+}
+
+.badge-warranty {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.stock-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stock-pill {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.pill-ok { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.pill-low { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+.pill-out { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+
+.action-buttons-group {
+  display: flex;
+  gap: 6px;
+}
+
+/* Price change reference box */
+.current-price-reference {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 18px;
+}
+
+.ref-col span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.ref-col strong {
+  font-size: 1rem;
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+}

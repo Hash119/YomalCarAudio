@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto Doc - Yomal Car Audio | Vehicle Audio, Custom Modification & Invoicing System</title>
+  <meta name="description" content="Premier Vehicle Audio, Android TV, 360 Cameras, Subwoofers, Tinting, Rat Guard, Security & Modification Specialists. Automated POS Billing & Workshop Management." />
+  
+  <!-- Google Fonts & CDN Libraries -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js & Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="css/pos.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/approvals.css" />
+  <link rel="stylesheet" href="css/inventory.css" />
+  <link rel="stylesheet" href="css/users.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-navbar">
+    <div class="container nav-inner">
+      <div class="nav-brand-group">
+        <a href="#" class="nav-logo-link" data-nav-target="landing">
+          <img src="Photos/YomalLOGO.jpg" alt="Auto Doc Yomal Car Audio Logo" class="nav-brand-logo" onerror="this.src='https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=100'" />
+          <div class="brand-text-col">
+            <span class="brand-title">AUTO DOC <span>YOMAL</span></span>
+            <span class="brand-subtitle">Car Audio & Modification</span>
+          </div>
+        </a>
+        <div class="live-status-indicator">
+          <span class="status-dot"></span>
+          <span>Workshop Open</span>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-menu">
+          <!-- Public Visitor Links -->
+          <li class="public-nav-item">
+            <a href="#" class="nav-item-btn active" data-nav-target="landing">
+              <span>🏠 Home</span>
+            </a>
+          </li>
+          <li class="public-nav-item">
+            <a href="#services-anchor" class="nav-item-btn" onclick="appRouter.navigateTo('landing'); setTimeout(() => document.getElementById('services-anchor')?.scrollIntoView({behavior: 'smooth'}), 100);">
+              <span>🔧 Services</span>
+            </a>
+          </li>
+          <li class="public-nav-item">
+            <a href="#products-anchor" class="nav-item-btn" onclick="appRouter.navigateTo('landing'); setTimeout(() => document.getElementById('products-anchor')?.scrollIntoView({behavior: 'smooth'}), 100);">
+              <span>📦 Products & Stock</span>
+            </a>
+          </li>
+          <li class="public-nav-item">
+            <a href="#quote-calc-anchor" class="nav-item-btn" onclick="appRouter.navigateTo('landing'); setTimeout(() => document.getElementById('quote-calc-anchor')?.scrollIntoView({behavior: 'smooth'}), 100);">
+              <span>⚡ Cost Estimator</span>
+            </a>
+          </li>
+          <li class="public-nav-item">
+            <a href="#verify-anchor" class="nav-item-btn" onclick="appRouter.navigateTo('landing'); setTimeout(() => document.getElementById('verify-anchor')?.scrollIntoView({behavior: 'smooth'}), 100);">
+              <span>🔍 Verify Bill</span>
+            </a>
+          </li>
+
+          <!-- Staff / Admin Management Links (Shown when Logged In) -->
+          <li class="staff-nav-item" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="dashboard">
+              <span>📊 Dashboard & EOD</span>
+            </a>
+          </li>
+          <li class="staff-nav-item" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="pos">
+              <span>💳 POS Billing</span>
+            </a>
+          </li>
+          <li class="staff-nav-item" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="invoices">
+              <span>📋 Invoices</span>
+            </a>
+          </li>
+          <li class="staff-nav-item" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="inventory">
+              <span>📦 Stock & Price</span>
+            </a>
+          </li>
+          <li class="staff-nav-item" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="approvals">
+              <span>🛡️ Approvals Hub</span>
+              <span class="nav-badge-count" id="nav-approvals-badge" style="display:none;">0</span>
+            </a>
+          </li>
+          <li class="staff-nav-item admin-only" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="users">
+              <span>👥 Staff Users</span>
+            </a>
+          </li>
+          <li class="staff-nav-item" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="settings">
+              <span>⚙️ Settings</span>
+            </a>
+          </li>
+          <li class="staff-nav-item" style="display: none;">
+            <a href="#" class="nav-item-btn" data-nav-target="landing">
+              <span>🌐 Public View</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="nav-user-profile"></div>
+        <a href="https://web.facebook.com/Yomalcaraudioo/" target="_blank" class="btn btn-sm btn-facebook" title="Follow Auto Doc on Facebook">
+          <span>🌐 Facebook</span>
+        </a>
+        <a href="https://wa.me/94771234567" target="_blank" class="btn btn-sm btn-whatsapp" title="Instant WhatsApp Assistance">
+          <span>💬 WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Views Container -->
+  <main class="container">
+
+    <!-- 1. VIEW: PUBLIC LANDING & SHOWCASE -->
+    <section id="view-landing" class="view-section active">
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-tag">
+              <span>✨ Sri Lanka's #1 Vehicle Audio & Custom Modification Studio</span>
+            </div>
+            <h1 class="hero-title">
+              Elevate Your Ride With <span class="glow-gold">Masterclass Audio</span> & Protection
+            </h1>
+            <p class="hero-subtitle">
+              From Android DSP players, active subwoofers, and 360° panoramic cameras to nano ceramic heat tinting, engine rat guards, and luxury leather seat covers.
+            </p>
+
+            <div class="hero-stats-row">
+              <div class="hero-stat-item">
+                <strong>1,500+</strong>
+                <span>Vehicles Upgraded</span>
+              </div>
+              <div class="hero-stat-item">
+                <strong>100%</strong>
+                <span>Genuine Warranty</span>
+              </div>
+              <div class="hero-stat-item">
+                <strong>8+ Yrs</strong>
+                <span>Master Craft</span>
+              </div>
+            </div>
+
+            <div class="hero-cta-group">
+              <button class="btn btn-primary" data-nav-target="pos">
+                <span>💳 Open POS Billing System</span>
+              </button>
+              <button class="btn btn-outline-gold" onclick="document.getElementById('services-anchor').scrollIntoView({behavior: 'smooth'})">
+                <span>🔧 Explore Services</span>
+              </button>
+              <button class="btn btn-secondary" onclick="document.getElementById('quote-calc-anchor').scrollIntoView({behavior: 'smooth'})">
+                <span>⚡ Instant Price Estimator</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-media-card">
+            <img src="assets/hero_car_audio.jpg" alt="Luxury Car Audio Setup" class="hero-media-thumb" />
+            <div class="hero-media-badge">⭐ Hi-Res DSP Tuning</div>
+            <div class="hero-media-caption">
+              <strong>Auto Doc Flagship Installation</strong>
+              <p class="text-muted">Concealed laser-fit wiring, Apple CarPlay & deep bass resonance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services Showcase -->
+      <div id="services-anchor" class="section-header-block">
+        <span class="section-tag">Specialized Services</span>
+        <h2 class="section-title">Complete Vehicle Transformation</h2>
+        <p class="section-desc">Factory-level electrical wiring, calibration, acoustic insulation and aesthetic protection tailored to your car make & model.</p>
+      </div>
+
+      <div class="services-grid" id="public-services-grid">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Featured Items / Handwritten Sample Note Items Showcase -->
+      <div id="products-anchor" class="section-header-block">
+        <span class="section-tag">Direct From Workshop Inventory</span>
+        <h2 class="section-title">Popular Items & Sound Equipment</h2>
+        <p class="section-desc">Sample equipment with transparent tiered pricing. Contact our technicians directly for custom bookings.</p>
+      </div>
+
+      <div class="products-showcase-grid" id="public-products-grid">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Interactive Quote Calculator -->
+      <div id="quote-calc-anchor" class="quote-calc-wrapper">
+        <div class="section-header-block" style="margin-bottom: 24px;">
+          <span class="section-tag">Cost Estimator</span>
+          <h2 class="section-title">Interactive Upgrade & Price Calculator</h2>
+          <p class="section-desc">Select the modifications and accessories you want to get an instant cost calculation and WhatsApp quote.</p>
+        </div>
+
+        <div class="quote-calc-grid">
+          <div>
+            <div class="form-group">
+              <label>Select Your Vehicle Make & Model:</label>
+              <input type="text" id="quote-car-model" class="form-control" placeholder="e.g. Toyota Premio 260 / Honda Vezel / Suzuki Swift / Nissan Leaf" oninput="appRouter.recalculateQuote()" />
+            </div>
+
+            <label class="form-group" style="margin-bottom: 8px;">Select Products & Services:</label>
+            <div class="quote-services-list" id="quote-services-selection">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="quote-summary-panel">
+            <h4>📋 Estimated Package Cost</h4>
+            <div class="quote-total-box">
+              <span class="lbl">Estimated Total (LKR)</span>
+              <span class="total-val" id="quote-estimated-total">Rs. 0</span>
+              <small class="text-muted" id="quote-selected-count">0 Services / Items Selected</small>
+            </div>
+
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 16px;">
+              *Price includes professional installation, harness wiring, and standard warranty.
+            </p>
+
+            <a href="https://wa.me/94771234567" target="_blank" id="quote-whatsapp-btn" class="btn btn-whatsapp">
+              <span>💬 Request Quote & Book on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Public Online Invoice Verification Box -->
+      <div id="verify-anchor" class="public-verify-card">
+        <h3>🔍 Verify Customer Invoice Online</h3>
+        <p class="text-muted">Enter your official invoice reference (e.g. <b>YCA-1001</b>) to review parts warranty and digital receipt.</p>
+        <div class="verify-input-group">
+          <input type="text" id="public-invoice-search-input" class="form-control" placeholder="Enter Invoice No. (e.g., YCA-1001)" />
+          <button class="btn btn-primary" onclick="appRouter.lookupPublicInvoice()">Verify Bill</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. VIEW: POS BILLING TERMINAL -->
+    <section id="view-pos" class="view-section">
+      <div class="pos-wrapper">
+        <!-- Catalog Column -->
+        <div class="pos-catalog-panel">
+          <div class="pos-catalog-header">
+            <div>
+              <h2>🛒 Workshop POS Terminal</h2>
+              <p class="text-muted">Select parts, sound systems, and labor services to build customer bill.</p>
+            </div>
+            <button class="btn btn-sm btn-outline-gold" onclick="UI.openModal('add-custom-pos-modal')">
+              <span>➕ Add Custom Item / Labor</span>
+            </button>
+          </div>
+
+          <!-- Search and Categories -->
+          <div class="pos-search-box form-group">
+            <span class="search-icon-pos">🔍</span>
+            <input type="text" id="pos-search-input" class="form-control" placeholder="Search by SKU, product name, or category..." />
+          </div>
+
+          <div class="pos-categories-scroller">
+            <button class="pos-cat-pill active" data-category="all">All Items</button>
+            <button class="pos-cat-pill" data-category="Android Displays">Android Displays</button>
+            <button class="pos-cat-pill" data-category="Audio & Subwoofers">Audio & Subwoofers</button>
+            <button class="pos-cat-pill" data-category="Cameras & DVR">Cameras & DVR</button>
+            <button class="pos-cat-pill" data-category="Tint & Heat Protection">Tint & Solar</button>
+            <button class="pos-cat-pill" data-category="Rat Guard Protection">Rat Guard</button>
+            <button class="pos-cat-pill" data-category="3M Carpets & Mats">3M Carpets</button>
+            <button class="pos-cat-pill" data-category="Seat Covers">Seat Covers</button>
+            <button class="pos-cat-pill" data-category="Security Systems">Security Systems</button>
+            <button class="pos-cat-pill" data-category="Installation">Labor & Services</button>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="pos-products-grid" id="pos-products-grid">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Cart Column -->
+        <div class="pos-cart-panel">
+          <div class="cart-header-row">
+            <h3>
+              <span>Customer Cart</span>
+              <span class="badge-cart-count" id="pos-cart-count">0</span>
+            </h3>
+            <button class="btn btn-sm btn-outline" onclick="posEngine.resetCart()">Clear</button>
+          </div>
+
+          <!-- Customer Details -->
+          <div class="pos-customer-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" id="pos-cust-name" class="form-control" placeholder="e.g. Saman Perera" />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" id="pos-cust-phone" class="form-control" placeholder="077XXXXXXX" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Vehicle Number</label>
+                <input type="text" id="pos-veh-no" class="form-control font-mono" placeholder="e.g. WP CAB-1234" />
+              </div>
+              <div class="form-group">
+                <label>Vehicle Model</label>
+                <input type="text" id="pos-veh-model" class="form-control" placeholder="e.g. Premio 260" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Cart Items List -->
+          <div class="cart-items-scroller" id="pos-cart-items">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- Additional Invoice Discount (With Admin Approval Requirement) -->
+          <div class="pos-discount-box">
+            <label style="font-size: 0.78rem; font-weight: 700; color: #fbbf24; display: block; margin-bottom: 6px;">
+              🎁 Apply Additional Invoice Discount
+            </label>
+            <div class="discount-inputs-row">
+              <select id="pos-discount-type" class="form-control" style="width: 130px;">
+                <option value="percentage">Percentage (%)</option>
+                <option value="fixed">Fixed (LKR)</option>
+              </select>
+              <input type="number" id="pos-discount-val" class="form-control" placeholder="0" min="0" />
+            </div>
+            <div class="discount-approval-notice">
+              <span>⚠️</span>
+              <span>Additional discounts automatically require Admin approval before invoice finalization.</span>
+            </div>
+          </div>
+
+          <!-- Payment & Notes -->
+          <div class="form-row" style="margin-bottom: 12px;">
+            <div class="form-group">
+              <label>Payment Method</label>
+              <select id="pos-payment-method" class="form-control">
+                <option value="Cash">💵 Cash</option>
+                <option value="Card">💳 Card / POS</option>
+                <option value="Bank Transfer">🏦 Bank Transfer</option>
+                <option value="Other">Other / Installment</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Bill Notes</label>
+              <input type="text" id="pos-notes" class="form-control" placeholder="Optional notes..." />
+            </div>
+          </div>
+
+          <!-- Summary & Complete -->
+          <div class="pos-summary-card">
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span id="pos-subtotal">Rs. 0</span>
+            </div>
+            <div class="summary-row" style="color: var(--accent-amber);">
+              <span>Extra Discount:</span>
+              <span id="pos-discount-amt">- Rs. 0</span>
+            </div>
+            <div class="summary-row grand-total">
+              <span>Payable Amount:</span>
+              <span id="pos-grandtotal">Rs. 0</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-checkout-complete" onclick="posEngine.checkout()">
+            <span>🏁 Generate Official Invoice</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. VIEW: INVOICES HISTORY -->
+    <section id="view-invoices" class="view-section">
+      <div class="approvals-header-toolbar" style="margin-bottom: 20px;">
+        <div>
+          <h2>📋 Invoice & Billing Register</h2>
+          <p class="text-muted">Review, print, and share verified customer invoices via WhatsApp.</p>
+        </div>
+        <button class="btn btn-primary" data-nav-target="pos">+ Create New Bill</button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Date & Time</th>
+              <th>Customer</th>
+              <th>Vehicle</th>
+              <th>Total Amount</th>
+              <th>Discount Given</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="invoices-table-body">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. VIEW: INVENTORY & PRICES -->
+    <section id="view-inventory" class="view-section">
+      <div class="inventory-page-wrapper">
+        <div class="inventory-toolbar">
+          <div class="inv-toolbar-left">
+            <input type="text" id="inventory-search-input" class="form-control" placeholder="Search stock by SKU, name, brand..." />
+            <select id="inventory-category-filter" class="form-control" style="width: 220px;">
+              <option value="all">All Categories</option>
+              <option value="Cameras & DVR">Cameras & DVR</option>
+              <option value="Sound Proofing">Sound Proofing</option>
+              <option value="Vehicle Modification">Vehicle Modification</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Wiring & Harness">Wiring & Harness</option>
+              <option value="Modification Parts">Modification Parts</option>
+              <option value="Android Displays">Android Displays</option>
+              <option value="Audio & Subwoofers">Audio & Subwoofers</option>
+              <option value="Tint & Heat Protection">Tint & Solar</option>
+              <option value="Rat Guard Protection">Rat Guard</option>
+              <option value="3M Carpets & Mats">3M Carpets</option>
+              <option value="Seat Covers">Seat Covers</option>
+              <option value="Security Systems">Security Systems</option>
+              <option value="Plastic & Body Protection">Plastic & Underbody</option>
+            </select>
+          </div>
+
+          <div class="inv-toolbar-right">
+            <button class="btn btn-primary" onclick="UI.openModal('add-product-modal')">
+              <span>➕ Add / Request New Item</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Item & SKU</th>
+                <th>Category</th>
+                <th>Cost</th>
+                <th>Sale Price</th>
+                <th>Disc. Tier</th>
+                <th>Special Tier</th>
+                <th>Stock Qty</th>
+                <th>Warranty</th>
+                <th>Manage</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-table-body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. VIEW: APPROVALS HUB -->
+    <section id="view-approvals" class="view-section">
+      <div class="approvals-container">
+        <div class="approvals-header-toolbar">
+          <div class="approvals-title-group">
+            <h2>
+              <span>🛡️ Admin Approvals Center</span>
+              <span id="tab-approvals-badge" class="badge-pill badge-warning">0 Pending</span>
+            </h2>
+            <p class="text-muted">Authorize invoice discounts, approve new staff inventory additions, and review price modifications.</p>
+          </div>
+
+          <div class="approvals-filters">
+            <button class="approvals-filter-btn active" data-filter="pending">⏳ Pending Review</button>
+            <button class="approvals-filter-btn" data-filter="discount">💳 Invoice Discounts</button>
+            <button class="approvals-filter-btn" data-filter="new_inventory">📦 New Inventory</button>
+            <button class="approvals-filter-btn" data-filter="price_change">💰 Price Changes</button>
+            <button class="approvals-filter-btn" data-filter="all">All History</button>
+          </div>
+        </div>
+
+        <div class="approvals-list" id="approvals-list-container">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. VIEW: EXECUTIVE DASHBOARD & EOD -->
+    <section id="view-dashboard" class="view-section">
+      <div class="dashboard-grid">
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-revenue">
+            <div class="kpi-header">
+              <span class="kpi-label">Today's Net Revenue</span>
+              <span class="kpi-icon">💰</span>
+            </div>
+            <div class="kpi-val highlight" id="kpi-today-sales">Rs. 0</div>
+            <div class="kpi-sub">Gross: <span id="kpi-gross-sales">Rs. 0</span></div>
+          </div>
+
+          <div class="kpi-card kpi-invoices">
+            <div class="kpi-header">
+              <span class="kpi-label">Invoices Completed</span>
+              <span class="kpi-icon">🧾</span>
+            </div>
+            <div class="kpi-val" id="kpi-invoices-count">0</div>
+            <div class="kpi-sub">Pending: <span id="kpi-pending-invoices">0</span></div>
+          </div>
+
+          <div class="kpi-card kpi-discount">
+            <div class="kpi-header">
+              <span class="kpi-label">Discounts Granted</span>
+              <span class="kpi-icon">🏷️</span>
+            </div>
+            <div class="kpi-val text-warning" id="kpi-discounts">Rs. 0</div>
+            <div class="kpi-sub">Admin Authorized</div>
+          </div>
+
+          <div class="kpi-card kpi-approvals">
+            <div class="kpi-header">
+              <span class="kpi-label">Pending Approvals</span>
+              <span class="kpi-icon">⏳</span>
+            </div>
+            <div class="kpi-val text-danger" id="kpi-pending-approvals">0</div>
+            <div class="kpi-sub">Requires Action</div>
+          </div>
+        </div>
+
+        <!-- End of Day Register Settlement -->
+        <div id="eod-settlement-breakdown">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Charts Row -->
+        <div class="analytics-charts-row">
+          <div class="chart-card">
+            <h3>📈 7-Day Revenue Trend (LKR)</h3>
+            <div class="chart-wrapper">
+              <canvas id="dashboard-sales-chart"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3>🍩 Revenue Share by Category</h3>
+            <div class="chart-wrapper">
+              <canvas id="dashboard-category-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Sellers & Activity Feed -->
+        <div class="bottom-analytics-row">
+          <div class="top-sellers-card">
+            <h3>🔥 Most Selling Products & Services</h3>
+            <div id="top-sellers-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="activity-feed-card">
+            <h3>⚡ Real-Time System Activity Feed</h3>
+            <div id="dashboard-activity-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. VIEW: STAFF USERS MANAGEMENT -->
+    <section id="view-users" class="view-section">
+      <div class="users-page-wrapper">
+        <div class="users-header-toolbar">
+          <div>
+            <h2>👥 Staff & User Account Management</h2>
+            <p class="text-muted">Create billing cashiers, lead technicians, and administrators with role permissions.</p>
+          </div>
+          <button class="btn btn-primary" onclick="usersManager.openAddUserModal()">
+            <span>➕ Create New User</span>
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>User & Handle</th>
+                <th>Role</th>
+                <th>Contact Info</th>
+                <th>Assigned Permissions</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. VIEW: SETTINGS & BACKUP -->
+    <section id="view-settings" class="view-section">
+      <div class="approvals-header-toolbar" style="margin-bottom: 24px;">
+        <div>
+          <h2>⚙️ System & Workshop Settings</h2>
+          <p class="text-muted">Manage workshop metadata, branch details, and local database backups.</p>
+        </div>
+      </div>
+
+      <div class="form-row" style="margin-bottom: 24px;">
+        <div class="form-group">
+          <label>Workshop Business Name</label>
+          <input type="text" id="set-shop-name" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Hotline / WhatsApp Number</label>
+          <input type="text" id="set-shop-phone" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-row" style="margin-bottom: 24px;">
+        <div class="form-group">
+          <label>Branch & Workshop Location Address</label>
+          <input type="text" id="set-shop-address" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Official Facebook Page URL</label>
+          <input type="text" id="set-shop-fb" class="form-control" placeholder="https://web.facebook.com/Yomalcaraudioo/" />
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="appRouter.saveSettings()" style="margin-bottom: 40px;">
+        💾 Save Workshop Details
+      </button>
+
+      <hr style="border-color: var(--border-subtle); margin-bottom: 30px;" />
+
+      <h3>💾 Database Backup, Restore & Reset</h3>
+      <p class="text-muted" style="margin-bottom: 20px;">All data is saved securely in your browser's persistent storage. You can export JSON backups or reset demo data anytime.</p>
+
+      <div class="action-buttons-group">
+        <button class="btn btn-gold" onclick="appRouter.downloadDatabaseBackup()">
+          <span>📥 Download JSON Backup</span>
+        </button>
+        <label class="btn btn-secondary" style="cursor: pointer;">
+          <span>📤 Restore from JSON File</span>
+          <input type="file" accept=".json" style="display: none;" onchange="appRouter.restoreDatabaseBackup(this)" />
+        </label>
+        <button class="btn btn-danger-outline" onclick="appRouter.resetDemoDatabase()">
+          <span>🔄 Reset Demo Database</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Luxury Workshop Footer -->
+  <footer class="app-footer" style="background: rgba(10, 13, 20, 0.98); border-top: 1px solid var(--border-subtle); padding: 50px 0 30px; margin-top: 60px;">
+    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; margin-bottom: 30px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+          <img src="Photos/YomalLOGO.jpg" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold-primary);" />
+          <div>
+            <h3 style="font-size: 1.2rem; color: #fff; margin: 0;">AUTO DOC YOMAL</h3>
+            <span style="color: var(--gold-primary); font-size: 0.76rem; font-weight: 700; text-transform: uppercase;">Car Audio & Modifications</span>
+          </div>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5;">
+          Sri Lanka's trusted center for Android display installations, custom sound staging, nano ceramic heat tinting, and comprehensive vehicle electronics.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color: #fff; margin-bottom: 14px; font-size: 1rem;">📍 Workshop Locations</h4>
+        <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 8px;">
+          <b>Main Flagship:</b> No. 142, Kandy Road, Kurunegala, Sri Lanka
+        </p>
+        <p style="font-size: 0.84rem; color: var(--text-muted);">
+          <b>Colombo Express Branch:</b> High Level Road, Colombo
+        </p>
+      </div>
+
+      <div>
+        <h4 style="color: #fff; margin-bottom: 14px; font-size: 1rem;">🌐 Official Social & Hotlines</h4>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="https://web.facebook.com/Yomalcaraudioo/" target="_blank" class="btn btn-sm btn-facebook" style="width: fit-content;">
+            <span>🌐 Follow on Facebook (@Yomalcaraudioo)</span>
+          </a>
+          <a href="https://wa.me/94771234567" target="_blank" class="btn btn-sm btn-whatsapp" style="width: fit-content;">
+            <span>💬 WhatsApp Hotline: +94 77 123 4567</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; text-align: center; font-size: 0.78rem; color: var(--text-muted);">
+      © 2026 Auto Doc - Yomal Car Audio. All Rights Reserved. System Version 2.4.0 (Automated POS & Workflow Engine).
+    </div>
+  </footer>
+
+  <!-- MODALS CONTAINER -->
+
+  <!-- 1. Invoice Printable Modal -->
+  <div class="modal-overlay" id="invoice-modal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3>📄 Official Vehicle Invoice & Warranty</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('invoice-modal')">&times;</button>
+      </div>
+      <div id="invoice-view-content"></div>
+    </div>
+  </div>
+
+  <!-- 2. Add New Product / Request Modal -->
+  <div class="modal-overlay" id="add-product-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📦 Add / Request New Inventory Item</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('add-product-modal')">&times;</button>
+      </div>
+      <form id="add-product-form" onsubmit="event.preventDefault(); inventoryManager.handleAddItemSubmit({
+        name: document.getElementById('new-item-name').value,
+        sku: document.getElementById('new-item-sku').value,
+        category: document.getElementById('new-item-category').value,
+        description: document.getElementById('new-item-desc').value,
+        unitCost: document.getElementById('new-item-cost').value,
+        salePrice: document.getElementById('new-item-sale').value,
+        discountPrice: document.getElementById('new-item-disc').value,
+        specialPrice: document.getElementById('new-item-spec').value,
+        stockQty: document.getElementById('new-item-stock').value,
+        reorderLevel: document.getElementById('new-item-reorder').value,
+        warranty: document.getElementById('new-item-warranty').value
+      })">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Item Name *</label>
+            <input type="text" id="new-item-name" class="form-control" required placeholder="e.g. Pioneer Underseat Subwoofer" />
+          </div>
+          <div class="form-group">
+            <label>SKU Code</label>
+            <input type="text" id="new-item-sku" class="form-control font-mono" placeholder="Auto-generated if blank" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="new-item-category" class="form-control">
+              <option value="Audio & Subwoofers">Audio & Subwoofers</option>
+              <option value="Android Displays">Android Displays</option>
+              <option value="Cameras & DVR">Cameras & DVR</option>
+              <option value="Tint & Heat Protection">Tint & Solar</option>
+              <option value="Rat Guard Protection">Rat Guard</option>
+              <option value="3M Carpets & Mats">3M Carpets</option>
+              <option value="Seat Covers">Seat Covers</option>
+              <option value="Security Systems">Security Systems</option>
+              <option value="Wiring & Harness">Wiring & Harness</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Plastic & Body Protection">Plastic & Underbody</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Warranty Period</label>
+            <input type="text" id="new-item-warranty" class="form-control" value="1 Year" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Unit Cost (LKR)</label>
+            <input type="number" id="new-item-cost" class="form-control" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label>Sale Price (LKR) *</label>
+            <input type="number" id="new-item-sale" class="form-control" required placeholder="0" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Discount Tier (LKR)</label>
+            <input type="number" id="new-item-disc" class="form-control" placeholder="Optional" />
+          </div>
+          <div class="form-group">
+            <label>Special Tier (LKR)</label>
+            <input type="number" id="new-item-spec" class="form-control" placeholder="Optional" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Initial Stock Qty</label>
+            <input type="number" id="new-item-stock" class="form-control" value="10" min="0" />
+          </div>
+          <div class="form-group">
+            <label>Reorder Alert Level</label>
+            <input type="number" id="new-item-reorder" class="form-control" value="3" min="1" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Item Description & Specs</label>
+          <textarea id="new-item-desc" class="form-control" rows="2" placeholder="Key specifications, fitment, features..."></textarea>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="btn btn-secondary" onclick="UI.closeModal('add-product-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Price Change Modal -->
+  <div class="modal-overlay" id="price-change-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>💰 Price Adjustment</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('price-change-modal')">&times;</button>
+      </div>
+      <div id="price-change-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- 4. Stock Adjustment Modal -->
+  <div class="modal-overlay" id="stock-adjust-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📦 Adjust Physical Stock</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('stock-adjust-modal')">&times;</button>
+      </div>
+      <div id="stock-adjust-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- 5. Add Custom Item in POS Modal -->
+  <div class="modal-overlay" id="add-custom-pos-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>➕ Add Custom Part / Labor Charge</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('add-custom-pos-modal')">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); 
+        const name = document.getElementById('custom-pos-name').value;
+        const price = document.getElementById('custom-pos-price').value;
+        const isSrv = document.getElementById('custom-pos-isservice').checked;
+        posEngine.addCustomItem(name, price, isSrv);
+        UI.closeModal('add-custom-pos-modal');
+      ">
+        <div class="form-group">
+          <label>Item / Service Description *</label>
+          <input type="text" id="custom-pos-name" class="form-control" required placeholder="e.g. Custom Subwoofer Enclosure Fabricate & Wire" />
+        </div>
+        <div class="form-group">
+          <label>Charge Amount (LKR) *</label>
+          <input type="number" id="custom-pos-price" class="form-control" required min="1" placeholder="e.g. 7500" />
+        </div>
+        <div class="form-group">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="custom-pos-isservice" checked />
+            <span>Mark as Labor / Workshop Service</span>
+          </label>
+        </div>
+        <div class="modal-footer-actions">
+          <button type="button" class="btn btn-secondary" onclick="UI.closeModal('add-custom-pos-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">+ Add to Bill</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Add User Modal -->
+  <div class="modal-overlay" id="add-user-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>👥 Create New Staff User Account</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('add-user-modal')">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); usersManager.handleAddUserSubmit({
+        username: document.getElementById('new-u-username').value,
+        name: document.getElementById('new-u-name').value,
+        role: document.getElementById('new-u-role').value,
+        pin: document.getElementById('new-u-pin').value,
+        email: document.getElementById('new-u-email').value,
+        phone: document.getElementById('new-u-phone').value
+      })">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="new-u-name" class="form-control" required placeholder="e.g. Nimal Fernando" />
+          </div>
+          <div class="form-group">
+            <label>Username *</label>
+            <input type="text" id="new-u-username" class="form-control font-mono" required placeholder="e.g. nimal" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Assigned Role *</label>
+            <select id="new-u-role" class="form-control">
+              <option value="cashier">💳 Billing Cashier (POS & Requests)</option>
+              <option value="tech">🔧 Lead Technician (Jobs & Requests)</option>
+              <option value="admin">👑 Administrator (Full Control & Approvals)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Login PIN / Password *</label>
+            <input type="password" id="new-u-pin" class="form-control" value="1234" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="new-u-email" class="form-control" placeholder="staff@yomalcaraudio.lk" />
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="text" id="new-u-phone" class="form-control" placeholder="07XXXXXXXX" />
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="btn btn-secondary" onclick="UI.closeModal('add-user-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 7. Quick Switch User Session Modal -->
+  <div class="modal-overlay" id="user-switch-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🔄 Switch Active User Session</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('user-switch-modal')">&times;</button>
+      </div>
+      <p class="text-muted" style="margin-bottom: 16px;">Quickly switch between staff accounts to test role-based permissions, discount requests, and approvals.</p>
+      <div class="user-switch-list" id="user-switch-list">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Service Booking Modal -->
+  <div class="modal-overlay" id="service-booking-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📅 Book Workshop Service & Upgrade</h3>
+        <button class="modal-close-btn" onclick="UI.closeModal('service-booking-modal')">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); appRouter.handleBookingSubmit()">
+        <div class="form-group">
+          <label>Selected Service</label>
+          <input type="text" id="booking-service-name" class="form-control" readonly />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="booking-cust-name" class="form-control" required placeholder="Your full name" />
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number *</label>
+            <input type="text" id="booking-cust-phone" class="form-control" required placeholder="077XXXXXXX" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vehicle Make & Model</label>
+            <input type="text" id="booking-cust-vehicle" class="form-control" placeholder="e.g. Toyota Prado / Honda Vezel" />
+          </div>
+          <div class="form-group">
+            <label>Preferred Date</label>
+            <input type="date" id="booking-date" class="form-control" />
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="btn btn-secondary" onclick="UI.closeModal('service-booking-modal')">Cancel</button>
+          <button type="submit" class="btn btn-whatsapp">
+            <span>💬 Confirm on WhatsApp</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 9. Staff & Admin Login Modal -->
+  <div class="modal-overlay" id="staff-login-modal">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.4rem;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem;">Staff & Management Portal</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Authentication Required</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="UI.closeModal('staff-login-modal')">&times;</button>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 20px;">
+        <img src="Photos/YomalLOGO.jpg" alt="Logo" style="width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold-primary); margin-bottom: 8px;" />
+        <p class="text-muted" style="font-size: 0.84rem;">
+          Please sign in with your staff account credentials to access POS Billing, Invoices, Stock management & Dashboard.
+        </p>
+      </div>
+
+      <!-- Quick Demo Account Pills -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 20px;">
+        <span style="font-size: 0.72rem; font-weight: 700; color: var(--gold-light); display: block; margin-bottom: 8px;">
+          ⚡ Quick Demo Logins (Click to 1-Click Fill & Sign In):
+        </span>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-sm btn-gold" style="font-size: 0.75rem;" onclick="appRouter.quickDemoLogin('admin')">
+            👑 Master Admin
+          </button>
+          <button type="button" class="btn btn-sm btn-outline" style="font-size: 0.75rem;" onclick="appRouter.quickDemoLogin('cashier')">
+            💳 Cashier
+          </button>
+          <button type="button" class="btn btn-sm btn-outline" style="font-size: 0.75rem;" onclick="appRouter.quickDemoLogin('tech')">
+            🔧 Technician
+          </button>
+        </div>
+      </div>
+
+      <form onsubmit="event.preventDefault(); 
+        const u = document.getElementById('login-username').value;
+        const p = document.getElementById('login-pin').value;
+        appRouter.handleStaffLoginSubmit(u, p);
+      ">
+        <div class="form-group">
+          <label>Staff Username *</label>
+          <input type="text" id="login-username" class="form-control font-mono" required placeholder="e.g. admin / cashier / tech" />
+        </div>
+
+        <div class="form-group">
+          <label>Security PIN / Password *</label>
+          <input type="password" id="login-pin" class="form-control" required placeholder="Enter PIN (Default: 1234)" />
+        </div>
+
+        <div class="modal-footer-actions" style="margin-top: 20px;">
+          <button type="button" class="btn btn-secondary" onclick="UI.closeModal('staff-login-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            <span>🔓 Sign In & Unlock Dashboard</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules in Dependency Order -->
+  <script src="js/data.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/billing.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/approvals.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/users.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

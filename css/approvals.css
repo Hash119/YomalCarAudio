@@ -1,0 +1,216 @@
+/* Auto Doc - Yomal Car Audio - Admin Approvals Hub */
+
+.approvals-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.approvals-header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--bg-card);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+}
+
+.approvals-title-group h2 {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.approvals-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.approvals-filter-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.approvals-filter-btn:hover {
+  background: var(--bg-surface-light);
+  color: #fff;
+}
+
+.approvals-filter-btn.active {
+  background: var(--gold-primary);
+  color: #000;
+  border-color: var(--gold-primary);
+  font-weight: 700;
+}
+
+/* Approvals List */
+.approvals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.approval-card {
+  background: var(--bg-card);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.approval-card.status-pending {
+  border-left: 4px solid var(--accent-amber);
+}
+
+.approval-card.status-approved {
+  border-left: 4px solid var(--accent-green);
+  opacity: 0.85;
+}
+
+.approval-card.status-rejected {
+  border-left: 4px solid var(--accent-red);
+  opacity: 0.85;
+}
+
+.approval-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.approval-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.card-icon {
+  font-size: 1.6rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.approval-card-title {
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+.approval-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.appr-type-badge {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.type-discount { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+.type-inventory { background: rgba(0, 229, 255, 0.15); color: var(--neon-cyan); }
+.type-price { background: rgba(230, 184, 0, 0.15); color: var(--gold-light); }
+
+.status-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.tag-pending { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.tag-approved { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+.tag-rejected { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+/* Card Body Grid */
+.appr-grid-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-item .lbl {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.grid-item strong {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.appr-reason-box {
+  font-size: 0.84rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--gold-primary);
+  padding: 8px 12px;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 16px;
+  color: #d1d5db;
+}
+
+.approval-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.approval-card-footer {
+  font-size: 0.8rem;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.empty-approvals-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: var(--glass-border);
+}
+
+.empty-approvals-state .empty-icon {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+}

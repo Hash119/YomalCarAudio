@@ -1,0 +1,447 @@
+/* Auto Doc - Yomal Car Audio - POS Billing Terminal & Cart */
+
+.pos-wrapper {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Left: Catalog Side */
+.pos-catalog-panel {
+  background: var(--bg-card);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.pos-catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.pos-search-box {
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+}
+
+.pos-search-box input {
+  padding-left: 38px;
+}
+
+.search-icon-pos {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+/* Category Filter Pills */
+.pos-categories-scroller {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+.pos-cat-pill {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.pos-cat-pill:hover {
+  background: var(--bg-surface-light);
+  color: #fff;
+  border-color: var(--border-hover);
+}
+
+.pos-cat-pill.active {
+  background: var(--gold-primary);
+  color: #000;
+  border-color: var(--gold-primary);
+  font-weight: 700;
+}
+
+/* POS Products Grid */
+.pos-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  max-height: 650px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.pos-item-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition);
+}
+
+.pos-item-card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.pos-item-card.out-of-stock {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+}
+
+.pos-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pos-item-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.badge-prod { background: rgba(0, 229, 255, 0.15); color: var(--neon-cyan); }
+.badge-srv { background: rgba(230, 184, 0, 0.15); color: var(--gold-light); }
+
+.pos-stock-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.stock-ok { color: #34d399; }
+.stock-low { color: #fbbf24; }
+.stock-out { color: #f87171; }
+.pos-duration-badge { font-size: 0.7rem; color: var(--text-muted); }
+
+.pos-item-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.pos-item-sku {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 12px;
+}
+
+/* Pricing Options Selector */
+.pos-pricing-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.pos-price-tier {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 6px 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.pos-price-tier:hover {
+  border-color: var(--gold-primary);
+  background: var(--bg-surface-light);
+}
+
+.pos-price-tier .tier-name {
+  display: block;
+  font-size: 0.64rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.pos-price-tier .tier-val {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold-light);
+}
+
+.pos-price-tier.tier-special .tier-val {
+  color: var(--neon-cyan);
+}
+
+.btn-pos-add {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: #fff;
+  padding: 7px;
+  font-size: 0.82rem;
+}
+
+.btn-pos-add:hover:not(:disabled) {
+  background: var(--gold-primary);
+  color: #000;
+  border-color: var(--gold-primary);
+}
+
+/* Right: Cart & Invoice Panel */
+.pos-cart-panel {
+  background: var(--bg-card);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  position: sticky;
+  top: 80px;
+}
+
+.cart-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cart-header-row h3 {
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-cart-count {
+  background: var(--gold-primary);
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+.cart-items-scroller {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 18px;
+  padding-right: 4px;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 30px 10px;
+  color: var(--text-muted);
+}
+
+.cart-empty-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.cart-item-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tag-service { font-size: 0.65rem; background: rgba(230, 184, 0, 0.15); color: var(--gold-light); padding: 1px 5px; border-radius: 3px; }
+.tag-product { font-size: 0.65rem; background: rgba(0, 229, 255, 0.15); color: var(--neon-cyan); padding: 1px 5px; border-radius: 3px; }
+
+.cart-tier-select {
+  background: var(--bg-card);
+  color: var(--gold-light);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.cart-unit-price {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.cart-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+}
+
+.qty-btn {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  padding: 2px 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.qty-btn:hover { color: var(--gold-primary); }
+
+.qty-val {
+  padding: 0 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.cart-item-total {
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #fff;
+  min-width: 75px;
+  text-align: right;
+}
+
+.cart-remove-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.cart-remove-btn:hover { color: var(--accent-red); }
+
+/* Customer Inputs Box */
+.pos-customer-form {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.pos-customer-form .form-group {
+  margin-bottom: 8px;
+}
+
+.pos-customer-form label {
+  font-size: 0.74rem;
+  margin-bottom: 3px;
+}
+
+.pos-customer-form .form-control {
+  padding: 6px 10px;
+  font-size: 0.84rem;
+}
+
+/* Discount Box with Warning Notice */
+.pos-discount-box {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px dashed rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.discount-inputs-row {
+  display: flex;
+  gap: 8px;
+}
+
+.discount-approval-notice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: #fbbf24;
+  margin-top: 6px;
+}
+
+/* Cart Summary & Checkout */
+.pos-summary-card {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 12px;
+  margin-bottom: 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.summary-row.grand-total {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.summary-row.grand-total span:last-child {
+  color: var(--gold-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.btn-checkout-complete {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+@media (max-width: 1000px) {
+  .pos-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
