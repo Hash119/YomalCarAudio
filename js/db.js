@@ -13,6 +13,15 @@ class DataStore {
       const saved = localStorage.getItem(this.STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
+        
+        // One-time migration for old contact info
+        if (parsed.shopInfo && parsed.shopInfo.phone === "+94 77 123 4567") {
+            parsed.shopInfo.phone = "+94 76 935 0735";
+            parsed.shopInfo.whatsapp = "+94771564131";
+            parsed.shopInfo.address = "77/A moris road milidduwa , Galle, Sri Lanka";
+            parsed.shopInfo.branch = "Galle Flagship Studio";
+        }
+
         // Ensure all required collections exist
         return {
           shopInfo: { ...INITIAL_DATA.shopInfo, ...(parsed.shopInfo || {}) },
